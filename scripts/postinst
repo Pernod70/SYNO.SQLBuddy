@@ -1,0 +1,6 @@
+#!/bin/sh
+
+rm -rf /var/services/web/SQLBuddy
+mv /var/packages/SQLBuddy/target/SQLBuddy /var/services/web/SQLBuddy
+
+exit 0

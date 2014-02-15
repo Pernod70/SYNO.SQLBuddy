@@ -1,0 +1,15 @@
+{
+	".url": {
+		"SYNO.SDS.SQLBuddy": {
+			"type": "url",
+			"allUsers": true,
+			"title": "app:app_name",
+			"desc": "app:description",
+			"icon": "images/SQLBuddy_{0}.png",
+			"texts": "texts",
+			"protocol": "http",
+			"url": "/SQLBuddy/",
+			"port": "80"
+		}
+	}
+}

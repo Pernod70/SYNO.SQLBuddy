@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm -f /tmp/pSB.upgrade
+
+exit 0

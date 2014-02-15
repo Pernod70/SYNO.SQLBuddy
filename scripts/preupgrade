@@ -1,0 +1,5 @@
+#!/bin/sh
+
+touch /tmp/pSB.upgrade
+
+exit 0

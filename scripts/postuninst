@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm -rf /var/services/web/SQLBuddy
+
+exit 0
