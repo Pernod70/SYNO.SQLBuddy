@@ -7,19 +7,29 @@ SQLBuddyUI="${SQLBuddyTarget}/ui"
 DSM_INDEX_ADD="/usr/syno/bin/pkgindexer_add"
 DSM_INDEX_DEL="/usr/syno/bin/pkgindexer_del"
 
+CheckEnv() {
+	[ -f "/etc.defaults/VERSION" ] || exit 1
+	DSM_VERSION=`grep ^majorversion= /etc.defaults/VERSION | cut -d'"' -f2`
+	[ -z "$DSM_VERSION" ] && exit 1
+
+	if [ $DSM_VERSION -ge 5 ]; then
+		if [ ! -f /var/packages/MariaDB/enabled ]; then
+			echo "Please run MariaDB first." > $SYNOPKG_TEMP_LOGFILE
+			exit 1
+		fi
+	fi
+}
+
 case "$1" in
 	start)
+		CheckEnv
+
 		rm -f $DESKTOP
 		if [ ! -z "$SYNOPKG_PKGNAME" -a -n "$SYNOPKG_DSM_VERSION_MAJOR" -a $SYNOPKG_DSM_VERSION_MAJOR -ge 4 ]; then
 			ln -sf ${SQLBuddyUI} ${DESKTOP}
 			${DSM_INDEX_ADD} ${SQLBuddyUI}/index.conf
 		else
 			ln -sf ${SQLBuddyTarget}/desktop ${DESKTOP}
-		fi
-
-		RunMySQL=`/bin/get_key_value /etc/synoinfo.conf runmysql`
-		if [ "x$RunMySQL" != "xyes" ]; then
-			logger -p user.err -t SQLBuddy "MySQL is not running."
 		fi
 		;;
 	stop)
